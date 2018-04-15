@@ -24,14 +24,13 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-mu = mean(X);
-sigma = std(X);
+mu = repmat(mean(X,1),size(X,1),1);
+sigma = repmat(std(X,0,1),size(X,1),1);
 
-for feat =1:size(X,2)
-    X(:,feat)=(X(:,feat)-mu(feat))/sigma(feat);
-end
 
-X_norm=X;
+X_norm=(X-mu)./sigma;
+
+
 
 
 
