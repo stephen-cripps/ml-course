@@ -52,7 +52,7 @@ a2 = sigmoid(X*Theta1');
 a2 = [ones(size(a2,1),1) a2]; 
 h = (sigmoid(a2*Theta2'));
 
-J = (1/m)*sum(sum(-ymat.*log(h)-(1-ymat).*log(1-h),2)) + (lambda/(2*m))*...
+J = (1/m)*sum(sum(-ymat.*log(h)-(1-ymat).*log(1-h))) + (lambda/(2*m))*...
 (sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)));
 
 
@@ -72,14 +72,17 @@ J = (1/m)*sum(sum(-ymat.*log(h)-(1-ymat).*log(1-h),2)) + (lambda/(2*m))*...
 %               over the training examples if you are implementing it for the 
 %               first time.
 
-delta3 = h - y;
-delta2 = (delta3*Theta2)(:,2:end).*sigmoidGradient(X*Theta1');
+delta3 = h - ymat;
+delta2 = (delta3*Theta2(:,2:end)).*sigmoidGradient(X*Theta1');
 
 DELTA1 = delta2'*X; 
 DELTA2 = delta3'*a2; 
 
 Theta1_grad = DELTA1/m;
+Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + (lambda/m)*Theta1(:,2:end);
 Theta2_grad = DELTA2/m;
+Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + (lambda/m)*Theta2(:,2:end);
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
