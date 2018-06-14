@@ -27,7 +27,13 @@ centroids = zeros(K, n);
 %
 
 
+logicalX= bsxfun(@eq,bsxfun(@times,ones(m,K),1:K),idx);
 
+sumLogicX = sum(logicalX);
+
+pX = bsxfun(@times,logicalX,permute(X,[1,3,2]));
+
+centroids = bsxfun(@rdivide,permute(sum(pX,1),[2,3,1]),sumLogicX');
 
 
 

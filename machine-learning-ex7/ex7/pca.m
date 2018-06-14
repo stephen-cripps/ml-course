@@ -9,6 +9,7 @@ function [U, S] = pca(X)
 
 % You need to return the following variables correctly.
 U = zeros(n);
+
 S = zeros(n);
 
 % ====================== YOUR CODE HERE ======================
@@ -20,9 +21,9 @@ S = zeros(n);
 %       number of examples).
 %
 
+sigma = (1/m)*X'*X;
 
-
-
+[U S V]= svd(sigma);
 
 
 
