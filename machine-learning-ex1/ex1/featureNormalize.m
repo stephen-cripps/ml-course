@@ -24,15 +24,14 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-mu = repmat(mean(X,1),size(X,1),1);
-sigma = repmat(std(X,0,1),size(X,1),1);
+%mu = repmat(mean(X,1),size(X,1),1);
+%sigma = repmat(std(X,0,1),size(X,1),1);
+%X_norm=(X-mu)./sigma;
 
 
-X_norm=(X-mu)./sigma;
-
-
-
-
+mu = mean(X,1);
+sigma = std(X,0,1); 
+X_norm = bsxfun(@rdivide,bsxfun(@minus,X,mu),sigma);
 
 
 % ============================================================
